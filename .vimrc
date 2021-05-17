@@ -130,6 +130,9 @@ let g:airline_right_sep=''
 "let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='papercolor'
 
+" disable syntax check by ycm
+let g:ycm_show_diagnostics_ui = 0
+
 "Nerdtree plugin
 "let NERDTreeMinimalUI=1
 let NERDTreeIgnore=['\.o$', '\~$']
