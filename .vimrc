@@ -84,6 +84,7 @@ let g:go_template_autocreate = 0
 
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
+
 nnoremap <C-P> @:
 inoremap <C-f> <C-x><C-o><C-p>
 nnoremap <silent> <F3> :TagbarToggle<CR>
@@ -95,11 +96,9 @@ nnoremap <silent> q :q<CR>
 nnoremap <silent> <leader>; :bp<CR>
 nnoremap <silent> <leader>, :bn<CR>
 
-map <C-\> :bel sp <CR>:exec(":YcmCompleter GoToDefinition ".expand("<cword>"))<CR>
-map <C-]> :bel :exec(":YcmCompleter GoToDefinition ".expand("<cword>"))<CR>
+nnoremap <silent> <C-\> :bel sp <CR>:exec(":YcmCompleter GoToDefinition ".expand("<cword>"))<CR>
+nnoremap <silent> <C-]> :bel :exec(":YcmCompleter GoToDefinition ".expand("<cword>"))<CR>
 
-"XXX Conflict with Vim command
-map <C-x> :vertical wincmd f<CR>
 vnoremap // y/<C-R>"<CR>
 
 " For manpages
