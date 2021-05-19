@@ -76,7 +76,6 @@ autocmd FileType c,cpp,java,python,go set formatoptions+=olt
 autocmd BufNewFile,BufRead *.html set shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType make setlocal expandtab "expandtab for makefile
 autocmd FileType go setlocal expandtab "expandtab for go
-autocmd FileType go,python,c,cpp TagbarOpen
 
 "Don't run gofmt during write
 let g:go_fmt_autosave = 0
