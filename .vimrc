@@ -94,8 +94,10 @@ nnoremap <silent> <leader>s :syntax sync fromstart<CR>
 nnoremap <silent> q :q<CR>
 nnoremap <silent> <leader>; :bp<CR>
 nnoremap <silent> <leader>, :bn<CR>
-"map <C-\> :bel vsp <CR>:exec("tag ".expand("<cword>"))<CR><CR>
-map <C-\> :bel vsp <CR>:exec(":GoDef ".expand("<cword>"))<CR><CR>
+
+map <C-\> :bel sp <CR>:exec(":YcmCompleter GoToDefinition ".expand("<cword>"))<CR>
+map <C-]> :bel :exec(":YcmCompleter GoToDefinition ".expand("<cword>"))<CR>
+
 "XXX Conflict with Vim command
 map <C-x> :vertical wincmd f<CR>
 vnoremap // y/<C-R>"<CR>
