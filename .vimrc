@@ -9,7 +9,7 @@ filetype plugin indent on
 "Color related
 set t_Co=256
 set background=light
-colorscheme PaperColor
+colorscheme gruvbox
 
 autocmd BufReadPost *
             \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
@@ -124,11 +124,9 @@ au BufEnter /* "call LoadCscope()
 set completeopt-=preview
 
 "Airline plugin
-"let g:airline_powerline_fonts = 1
-let g:airline_left_sep=''
-let g:airline_right_sep=''
+let g:airline_powerline_fonts = 1
 "let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='papercolor'
+let g:airline_theme='gruvbox'
 
 " disable syntax check by ycm
 let g:ycm_show_diagnostics_ui = 0
