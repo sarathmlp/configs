@@ -11,11 +11,6 @@ set t_Co=256
 set background=light
 colorscheme PaperColor
 
-autocmd BufReadPost *
-            \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-            \ |   exe "normal! g`\""
-            \ | endif
-
 "Indentation and word wrap
 set autoindent
 set expandtab
@@ -83,18 +78,15 @@ let g:go_template_autocreate = 0
 
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
-
-nnoremap <C-P> @:
-inoremap <C-f> <C-x><C-o><C-p>
 nnoremap <silent> <F3> :TagbarToggle<CR>
 nnoremap <F4> :NERDTreeToggle<CR>
-nnoremap <F5> <C-w>w
-nnoremap <silent> <F6> :call LoadCscope()<CR>
+nnoremap <silent> <F5> :call Copy()<CR>
+
 nnoremap <silent> <leader>s :syntax sync fromstart<CR>
 nnoremap <silent> q :q<CR>
 nnoremap <silent> <leader>; :bp<CR>
 nnoremap <silent> <leader>, :bn<CR>
-
+nnoremap <C-P> @:
 nnoremap <silent> <C-\> :bel sp <CR>:exec(":YcmCompleter GoToDefinition ".expand("<cword>"))<CR>
 nnoremap <silent> <C-]> :bel :exec(":YcmCompleter GoToDefinition ".expand("<cword>"))<CR>
 
@@ -118,7 +110,13 @@ function! LoadCscope()
     set cscopeverbose
   endif
 endfunction
-au BufEnter /* "call LoadCscope()
+"au BufEnter /* call LoadCscope()
+
+"Function to enable mouse copy
+function! Copy()
+    set nonu
+    set mouse=
+endfunction
 
 "No preview needed in auto complete
 set completeopt-=preview
@@ -132,7 +130,6 @@ let g:airline_theme='papercolor'
 let g:ycm_show_diagnostics_ui = 0
 
 "Nerdtree plugin
-"let NERDTreeMinimalUI=1
 let NERDTreeIgnore=['\.o$', '\~$']
 highlight link NERDTreeExecFile Normal
 
