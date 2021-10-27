@@ -1,18 +1,51 @@
 "Start Almighty VIM
 "Author:Sarath V
 
-"Syntax related
-set title
-syntax on
-filetype plugin indent on
+call plug#begin("~/.config/nvim/plugged")
+  " Color
+  Plug 'morhetz/gruvbox'
+  Plug 'rakr/vim-one'
 
-"Color related
+  " Language Client
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+  " File Search
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+
+  " File Explorer with Icons
+  Plug 'scrooloose/nerdtree'
+  Plug 'ryanoasis/vim-devicons'
+
+  "Go
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+  " Others
+  Plug 'itchyny/lightline.vim'
+  Plug 'tpope/vim-surround'
+  Plug 'preservim/tagbar'
+  " End
+call plug#end()
+
+if (has("nvim"))
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
 if (has("termguicolors"))
   set termguicolors
 endif
 
 set background=light
 colorscheme gruvbox
+
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ }
+
+"Syntax related
+set title
+syntax on
+filetype plugin indent on
 
 "Indentation and word wrap
 set autoindent
@@ -67,6 +100,7 @@ set path+=$HOME
 "Tagbar plugin
 let Tlist_WinWidth=40
 let Tlist_Exit_OnlyWindow = 1
+"let g:tagbar_left = 1
 
 "File specific handling
 autocmd FileType c,cpp,java,python,go set formatoptions+=olt
@@ -123,18 +157,10 @@ endfunction
 "No preview needed in auto complete
 set completeopt-=preview
 
-"Airline plugin
-let g:airline_powerline_fonts = 1
-"let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='gruvbox'
-
 " disable syntax check by ycm
 let g:ycm_show_diagnostics_ui = 0
 
 "Nerdtree plugin
 let NERDTreeIgnore=['\.o$', '\~$']
 highlight link NERDTreeExecFile Normal
-
-"Pathogen plugin
-call pathogen#infect() 
 
