@@ -121,7 +121,7 @@ nnoremap <silent> q :q<CR>
 nnoremap <silent> <leader>; :bp<CR>
 nnoremap <silent> <leader>, :bn<CR>
 nnoremap <C-P> @:
-map <C-\> :bel vsp <CR>:exec(":GoDef ".expand("<cword>"))<CR><CR>
+map <C-\> :bel sp <CR>:exec(":GoDef ".expand("<cword>"))<CR><CR>
 
 vnoremap // y/<C-R>"<CR>
 
