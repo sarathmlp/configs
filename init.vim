@@ -37,10 +37,7 @@ endif
 
 set background=light
 colorscheme gruvbox
-
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ }
+let g:lightline = {'colorscheme': 'wombat',}
 
 "Syntax related
 set title
@@ -103,6 +100,7 @@ let Tlist_Exit_OnlyWindow = 1
 "let g:tagbar_left = 1
 
 "File specific handling
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 autocmd FileType c,cpp,java,python,go set formatoptions+=olt
 autocmd BufNewFile,BufRead *.html set shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType make setlocal expandtab "expandtab for makefile
@@ -123,8 +121,7 @@ nnoremap <silent> q :q<CR>
 nnoremap <silent> <leader>; :bp<CR>
 nnoremap <silent> <leader>, :bn<CR>
 nnoremap <C-P> @:
-nnoremap <silent> <C-\> :bel sp <CR>:exec(":YcmCompleter GoToDefinition ".expand("<cword>"))<CR>
-nnoremap <silent> <C-]> :bel :exec(":YcmCompleter GoToDefinition ".expand("<cword>"))<CR>
+map <C-\> :bel vsp <CR>:exec(":GoDef ".expand("<cword>"))<CR><CR>
 
 vnoremap // y/<C-R>"<CR>
 
@@ -136,31 +133,9 @@ nmap K :Man <cword><CR>
 " Ctags path
 set tags+=tags;/
 
-"Function to load cscope database
-function! LoadCscope()
-  let db = findfile("cscope.out", ".;")
-  if (!empty(db))
-    let path = strpart(db, 0, match(db, "/cscope.out$"))
-    set nocscopeverbose " suppress 'duplicate connection' error
-    exe "cs add " . db . " " . path
-    set cscopeverbose
-  endif
-endfunction
-"au BufEnter /* call LoadCscope()
-
 "Function to enable mouse copy
 function! Copy()
     set nonu
     set mouse=
 endfunction
-
-"No preview needed in auto complete
-set completeopt-=preview
-
-" disable syntax check by ycm
-let g:ycm_show_diagnostics_ui = 0
-
-"Nerdtree plugin
-let NERDTreeIgnore=['\.o$', '\~$']
-highlight link NERDTreeExecFile Normal
 
