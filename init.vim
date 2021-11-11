@@ -21,7 +21,8 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
   " Others
-  Plug 'itchyny/lightline.vim'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
   Plug 'tpope/vim-surround'
   Plug 'preservim/tagbar'
   " End
@@ -37,7 +38,6 @@ endif
 
 set background=light
 colorscheme gruvbox
-let g:lightline = {'colorscheme': 'wombat',}
 
 "Syntax related
 set title
@@ -138,4 +138,7 @@ function! Copy()
     set nonu
     set mouse=
 endfunction
+
+let g:airline_powerline_fonts = 1
+let g:airline_theme='gruvbox'
 
