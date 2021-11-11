@@ -121,6 +121,11 @@ nnoremap <silent> q :q<CR>
 nnoremap <silent> <leader>; :bp<CR>
 nnoremap <silent> <leader>, :bn<CR>
 nnoremap <C-P> @:
+
+"use tab for completion if pop menu available
+inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+
 map <C-\> :bel sp <CR>:exec(":GoDef ".expand("<cword>"))<CR><CR>
 
 vnoremap // y/<C-R>"<CR>
