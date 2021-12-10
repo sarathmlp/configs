@@ -4,7 +4,7 @@
 call plug#begin("~/.config/nvim/plugged")
   " Color
   Plug 'morhetz/gruvbox'
-  Plug 'rakr/vim-one'
+  Plug 'NLKNguyen/papercolor-theme'
 
   " Language Client
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -37,7 +37,7 @@ if (has("termguicolors"))
 endif
 
 set background=light
-colorscheme gruvbox
+colorscheme PaperColor
 
 "Syntax related
 set title
@@ -145,5 +145,5 @@ function! Copy()
 endfunction
 
 let g:airline_powerline_fonts = 1
-let g:airline_theme='gruvbox'
+"let g:airline_theme='papercolor'
 
