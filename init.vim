@@ -86,7 +86,7 @@ set scrolljump=2
 set scrolloff=1
 
 "C indentation flags
-set cino+=:0,l1,g0,(0,j1,t0
+"set cino+=:0,l1,g0,(0,j1,t0
 
 "No error bells
 set noeb vb t_vb=
