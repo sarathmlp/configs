@@ -103,6 +103,7 @@ let Tlist_Exit_OnlyWindow = 1
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 autocmd FileType c,cpp,java,python,go set formatoptions+=olt
 autocmd BufNewFile,BufRead *.html set shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 "Don't run gofmt during write
 let g:go_fmt_autosave = 0
