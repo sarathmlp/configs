@@ -25,6 +25,7 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'vim-airline/vim-airline-themes'
   Plug 'tpope/vim-surround'
   Plug 'preservim/tagbar'
+  Plug 'vim-scripts/DrawIt'
   " End
 call plug#end()
 
