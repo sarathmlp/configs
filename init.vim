@@ -112,8 +112,8 @@ let g:go_template_autocreate = 0
 
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
-nnoremap <silent> <F3> :TagbarToggle<CR>
-nnoremap <F4> :NERDTreeToggle<CR>
+nnoremap <F3> :NERDTreeToggle<CR>
+nnoremap <silent> <F4> :TagbarToggle<CR>
 nnoremap <silent> <F5> :call Copy()<CR>
 
 nnoremap <silent> <leader>s :syntax sync fromstart<CR>
