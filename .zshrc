@@ -16,3 +16,13 @@ alias grep='grep --color=always'
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
+# Go coc completion
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+myip()
+{
+    curl https://ipinfo.io/ip
+    printf "\n"
+}
