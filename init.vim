@@ -17,15 +17,19 @@ call plug#begin("~/.config/nvim/plugged")
   Plug 'scrooloose/nerdtree'
   Plug 'ryanoasis/vim-devicons'
 
+  " Git integration
+  Plug 'tpope/vim-fugitive'
+
   "Go
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-  " Others
+  " Status line
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+
+  " Others
   Plug 'tpope/vim-surround'
   Plug 'preservim/tagbar'
-  Plug 'vim-scripts/DrawIt'
   " End
 call plug#end()
 
@@ -115,8 +119,9 @@ set pastetoggle=<F2>
 nnoremap <F3> :NERDTreeToggle<CR>
 nnoremap <silent> <F4> :TagbarToggle<CR>
 nnoremap <silent> <F5> :call Copy()<CR>
+noremap <F12> <Esc>:syntax sync fromstart<CR>
+inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
-nnoremap <silent> <leader>s :syntax sync fromstart<CR>
 nnoremap <silent> q :q<CR>
 nnoremap <silent> <leader>; :bp<CR>
 nnoremap <silent> <leader>, :bn<CR>
@@ -145,5 +150,6 @@ function! Copy()
 endfunction
 
 let g:airline_powerline_fonts = 1
-"let g:airline_theme='papercolor'
-
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_left_sep = ' '
+let g:airline_right_sep = ' '
