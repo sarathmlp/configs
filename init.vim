@@ -23,6 +23,9 @@ call plug#begin("~/.config/nvim/plugged")
   "Go
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+  "Rust
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
   " Status line
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
