@@ -45,7 +45,7 @@ if (has("termguicolors"))
 endif
 
 set background=light
-colorscheme gruvbox
+colorscheme PaperColor
 
 "Syntax related
 set title
