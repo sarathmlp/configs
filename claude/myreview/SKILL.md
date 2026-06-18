@@ -5,8 +5,9 @@ description: Review the current code changes (working diff or a PR/branch) again
 
 # Checklist-driven code review
 
-Review the code changes the user points at — the working-tree diff by default,
-or a specified branch/PR (`git diff main...<branch>`, or `gh pr diff <n>`).
+Review branch/PR changes: `gh pr diff <n>`, or `git diff <base>...HEAD` (`<base>`
+= merge target, detect it; not always `main`). Working-tree `git diff` only for
+uncommitted edits.
 
 Apply the checklist below in addition to ordinary correctness review. It layers
 on top of default behavior — it reinforces the things that get missed. For each
