@@ -5,7 +5,8 @@ they use. The layout mirrors `~/.claude/`, so every file here has one home there
 
 ```
 claude/
-├── install.sh                    copies everything below into ~/.claude
+├── install.sh                    repo → ~/.claude (set up a machine)
+├── collect.sh                    ~/.claude → repo (bring your edits back)
 ├── CLAUDE.md                     → ~/.claude/CLAUDE.md      global working principles + coding checklist
 ├── RTK.md                        → ~/.claude/RTK.md         rtk token-proxy notes (included by CLAUDE.md)
 ├── settings.json                 → ~/.claude/settings.json  rtk hook, effort level, theme, plugins
@@ -39,19 +40,25 @@ Requires `rtk` on `PATH`: `settings.json` installs its hook (`rtk hook claude`)
 and the review skills run `rtk proxy git diff`. The script warns if it is
 missing.
 
-**Edits go one way.** The script copies repo → `~/.claude`. If you change a
-skill or `CLAUDE.md` in `~/.claude`, copy it back here and commit, or the next
-install overwrites it (the backup keeps it).
+## Saving changes
+
+Edit skills, agents or `CLAUDE.md` where Claude Code uses them, in
+`~/.claude`. Then bring them back here and commit:
+
+```sh
+~/configs/claude/collect.sh     # copies changed files into this directory, shows git status
+cd ~/configs && git add claude && git commit -m "..."
+```
+
+`collect.sh` picks up `CLAUDE.md`, `RTK.md`, `settings.json`, every agent and
+every skill, including new ones, except `graphify` (installed by its own tool)
+and `synced` (managed by claude.ai). It never deletes: if you remove a skill
+from `~/.claude`, delete it here yourself. Review `git status` before committing.
 
 ## New machine
 
 1. Install Claude Code and `rtk`.
 2. Clone this repo and run `claude/install.sh`.
-
-Copying `claude/` over as `~/.claude` by hand also works on a machine where
-`~/.claude` does not exist yet, but use the script anywhere Claude Code has
-already run: replacing the directory would wipe its existing settings,
-projects and history.
 
 ## Usage
 
