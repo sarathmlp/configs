@@ -7,6 +7,7 @@ they use. The layout mirrors `~/.claude/`, so every file here has one home there
 claude/
 ├── install.sh                    repo → ~/.claude (set up a machine)
 ├── collect.sh                    ~/.claude → repo (bring your edits back)
+├── uninstall.sh                  undo install.sh (restore ~/.claude)
 ├── CLAUDE.md                     → ~/.claude/CLAUDE.md      global working principles + coding checklist
 ├── RTK.md                        → ~/.claude/RTK.md         rtk token-proxy notes (included by CLAUDE.md)
 ├── settings.json                 → ~/.claude/settings.json  rtk hook, effort level, theme, plugins
@@ -28,10 +29,25 @@ It copies `CLAUDE.md`, `RTK.md`, `settings.json`, `skills/` and `agents/` into
 `~/.claude/`, and is safe to re-run:
 
 - files already identical are skipped;
-- a file it would change is first backed up to
-  `~/.claude/config-backups/<timestamp>/`;
+- it records in `~/.claude/config-install/` every file it adds, every file it
+  replaces (keeping the original), and every directory it creates — on the
+  first install, so re-running it never loses the true originals;
 - nothing else in `~/.claude` (credentials, history, projects, plugins,
   review archive) is touched.
+
+## Uninstall
+
+```sh
+~/configs/claude/uninstall.sh
+```
+
+Puts `~/.claude` back to how it was before the first install: deletes the files
+install added, restores the ones it replaced, and removes the directories it
+created (a directory that has since gained other files, such as Claude Code's
+own state on a fresh machine, is kept). Start a new session afterwards.
+
+If you edited an installed file since, it refuses and lists the files: run
+`collect.sh` first to keep the edits, or `uninstall.sh --force` to discard them.
 
 New or changed agents load only in a new Claude Code session; skills reload
 immediately.
