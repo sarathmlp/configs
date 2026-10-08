@@ -12,5 +12,4 @@ Do not modify the repository. Keep any probe scripts and notes inside the
 scratch directory you are given, and do not read any other scratch directory.
 
 Return a verdict and findings ranked by severity, each with file:line, the
-evidence (probe, test, or traced code path) and a suggested fix. Also write
-that same final report to `report.md` in your scratch directory.
+evidence (probe, test, or traced code path) and a suggested fix.

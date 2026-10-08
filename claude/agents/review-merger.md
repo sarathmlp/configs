@@ -58,4 +58,6 @@ report, add:
 - anything either report says it could not verify or did not run.
 
 Write the whole output (report plus these notes) to `merged.md` in your
-scratch directory, and return the same text.
+scratch directory. Then return only the path and a short summary: the
+verdict, the blocker and should-fix titles, and the disagreements you
+settled. Return the full text only if writing the file was refused.

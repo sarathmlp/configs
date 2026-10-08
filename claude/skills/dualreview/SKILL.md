@@ -49,30 +49,33 @@ read any directory it was not given.
   reviewer, or anything you suspect.
 - `general-purpose` agent: "Invoke the myreview skill with the Skill tool
   (arguments: <this skill's arguments, or none>) and follow it end to end on
-  this diff. Return its full final report, and also write it to `report.md`
-  in your scratch directory." On a follow-up, add: the previous run's
+  this diff. Return its full final report." On a follow-up, add: the previous run's
   `merge/merged.md` path, its `plain/`, `skill/` and `merge/` directories (for
   the probes to rerun), the update diff command, and "This is a follow-up:
   apply the skill's 'Follow-up passes' section to every finding in the
   previous merged report."
 
-When both return, check that `plain/report.md` and `skill/report.md` exist.
-If one is missing, write that agent's returned report to the path verbatim
-yourself.
+When both return, write each returned report verbatim to `plain/report.md`
+and `skill/report.md`. (Claude Code refuses report-file writes from these
+subagents, so the reports arrive only as their returned text.)
 
 ## 3. Merge
 
 Spawn a `review-merger` agent with the repo path, the full diff command, the
 two report paths and the run's `merge/` directory. On a follow-up, also give
 it the previous run's `merge/merged.md` and the update diff command. It
-writes `merge/merged.md`.
+writes `merge/merged.md` and returns only a short summary; if it returns the
+full text instead (its write was refused), save that as `merge/merged.md`.
 
 ## 4. Archive and report
 
-1. Copy the whole run directory to
-   `~/.claude/reviews/<repo dir name>/<branch, / replaced by _>/<YYYYMMDD-HHMM>-<short HEAD>/`.
-2. Show the user the merger's report verbatim, then one line with the
-   archive path.
+1. Copy the run directory to
+   `~/.claude/reviews/<repo dir name>/<branch, / replaced by _>/<YYYYMMDD-HHMM>-<short HEAD>/`,
+   leaving out code exports and virtualenvs (`export/`, `base/`, `head/`,
+   `venv/`, `__pycache__/`): probes are always rerun against the current
+   checkout, never an old export.
+2. Read `merge/merged.md` and show it to the user verbatim, then one line with
+   the archive path.
 
 If any agent stops on an error (an API or usage limit, a crash) before
 returning its report, resume it once with SendMessage, telling it to continue
