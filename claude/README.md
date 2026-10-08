@@ -5,8 +5,10 @@ they use. The layout mirrors `~/.claude/`, so every file here has one home there
 
 ```
 claude/
+├── install.sh                    copies everything below into ~/.claude
 ├── CLAUDE.md                     → ~/.claude/CLAUDE.md      global working principles + coding checklist
 ├── RTK.md                        → ~/.claude/RTK.md         rtk token-proxy notes (included by CLAUDE.md)
+├── settings.json                 → ~/.claude/settings.json  rtk hook, effort level, theme, plugins
 ├── skills/
 │   ├── myreview/SKILL.md         → ~/.claude/skills/myreview/
 │   └── dualreview/SKILL.md       → ~/.claude/skills/dualreview/
@@ -17,23 +19,39 @@ claude/
 
 ## Install
 
-Symlink each file into `~/.claude/` so edits made there land in this repo:
-
 ```sh
-REPO=~/configs/claude
-mkdir -p ~/.claude/skills ~/.claude/agents
-ln -sf $REPO/CLAUDE.md ~/.claude/CLAUDE.md
-ln -sf $REPO/RTK.md    ~/.claude/RTK.md
-for s in myreview dualreview; do ln -sfn $REPO/skills/$s ~/.claude/skills/$s; done
-for a in plain-reviewer review-merger; do ln -sf $REPO/agents/$a.md ~/.claude/agents/$a.md; done
+~/configs/claude/install.sh
 ```
 
-`ln -sf` replaces an existing file, so back up anything in `~/.claude` you have
-not committed yet. New or changed agents load only in a new Claude Code session;
-skills reload immediately.
+It copies `CLAUDE.md`, `RTK.md`, `settings.json`, `skills/` and `agents/` into
+`~/.claude/`, and is safe to re-run:
 
-Requires `rtk` (see `RTK.md`) on `PATH`: the review skills run
-`rtk proxy git diff` so the diff is not summarised.
+- files already identical are skipped;
+- a file it would change is first backed up to
+  `~/.claude/config-backups/<timestamp>/`;
+- nothing else in `~/.claude` (credentials, history, projects, plugins,
+  review archive) is touched.
+
+New or changed agents load only in a new Claude Code session; skills reload
+immediately.
+
+Requires `rtk` on `PATH`: `settings.json` installs its hook (`rtk hook claude`)
+and the review skills run `rtk proxy git diff`. The script warns if it is
+missing.
+
+**Edits go one way.** The script copies repo → `~/.claude`. If you change a
+skill or `CLAUDE.md` in `~/.claude`, copy it back here and commit, or the next
+install overwrites it (the backup keeps it).
+
+## New machine
+
+1. Install Claude Code and `rtk`.
+2. Clone this repo and run `claude/install.sh`.
+
+Copying `claude/` over as `~/.claude` by hand also works on a machine where
+`~/.claude` does not exist yet, but use the script anywhere Claude Code has
+already run: replacing the directory would wipe its existing settings,
+projects and history.
 
 ## Usage
 
