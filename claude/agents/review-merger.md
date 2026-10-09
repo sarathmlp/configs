@@ -30,6 +30,10 @@ Merge rules:
 - Anything either report noticed that no other finding covers goes in the
   merged report, at least as a Nit.
 - Correct wrong file:line citations when you verify them.
+- Rerun a probe or test only for a finding that one source raised alone, or
+  that the sources dispute. Where two sources agree and one of them ran a
+  probe, read that probe's saved output in its directory and cite it; rerun
+  it only if the output is missing or does not show what the report claims.
 
 Do not modify the repository. Keep probes inside your scratch directory, and
 run them against the repo checkout at the reviewed HEAD (or a fresh export of
@@ -52,6 +56,9 @@ so; each row needs its own evidence. A finding still open goes into the
 merged findings as well. For a finding the previous report already marked
 landed, rerun its probe only if the update diff touches a file the probe
 exercises; otherwise the evidence is the unchanged code at its file:line.
+If report B already reran a prior finding's probe in this run, its saved
+output is that row's evidence: read and cite it, and rerun only when A or C
+disputes the row or the output does not show the status B claims.
 
 Output: read the "Output" section of ~/.claude/skills/myreview/SKILL.md and
 write the merged report in exactly the format it gives ("The report should be

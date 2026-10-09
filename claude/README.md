@@ -103,7 +103,10 @@ Runs four agents:
    disagreements by evidence, and writes one report in `/myreview`'s format.
 
 The challenger looks for missed bugs; the merger weeds out false alarms.
-Arguments are passed through to `/myreview`. Expect roughly 40–60 minutes.
+Arguments are passed through to `/myreview`. Expect roughly 20–30 minutes.
+Run it in a fresh session (`claude` in the repo, or `/clear` first): every
+dispatch step re-reads the conversation, so a long session makes the
+orchestration cost more than the review itself.
 The skill runs `caffeinate` so idle sleep can't pause the agents, but closing
 the lid on battery still does.
 

@@ -8,6 +8,11 @@ description: Review a branch/PR with two independent reviewers — a plain one a
 You only dispatch and relay. Do not read the diff or form any opinion of the
 change yourself: the agents do the reviewing, challenging and merging.
 
+Run it in a fresh session. Every dispatch step re-reads this whole
+conversation, so a session with long earlier work makes orchestration cost
+more than the review. If this session already holds unrelated work, say so
+to the user once before starting.
+
 ## 1. Set up the run
 
 1. Detect the merge target and fix one exact diff command.
