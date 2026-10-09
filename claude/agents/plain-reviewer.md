@@ -13,3 +13,6 @@ scratch directory you are given, and do not read any other scratch directory.
 
 Return a verdict and findings ranked by severity, each with file:line, the
 evidence (probe, test, or traced code path) and a suggested fix.
+
+End with a section headed `## Clean list`: one line per function, unit or
+behaviour you checked and found correct, its name only, with no reasons.

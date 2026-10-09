@@ -1,6 +1,6 @@
 ---
 name: myreview
-description: Review the current code changes (working diff or a PR/branch) — construct the minimal alternative first, then apply a 10-point checklist. Pass `deep` to run two independent reviews and merge them.
+description: Review the current code changes (working diff or a PR/branch) — construct the minimal alternative first, then apply a 10-point checklist.
 ---
 
 # Checklist-driven code review
@@ -12,27 +12,6 @@ uncommitted edits.
 Review the full diff, never a summary of it. `rtk` rewrites `git diff` into a
 condensed summary, so run it as `rtk proxy git diff …`, or save the diff to a
 file in scratch and read that file.
-
-## Deep mode (only when the arguments contain `deep`)
-
-Costs about three times a normal review; use it for large or risky PRs.
-
-1. Prepare once: detect the merge target and fix the exact diff command.
-2. Spawn two fresh agents in parallel. Tell each to follow this file end to
-   end in normal mode (challenge step included) on that exact diff command,
-   with its own scratch directory, and to return its full report. Neither
-   sees the other's work.
-3. Merge the two reports into one, in the normal report format:
-   - Combine findings that share a root cause; keep the stronger evidence.
-   - A finding only one review raised: verify it yourself (read the cited
-     file:line, or rerun its probe or test) before keeping it. Drop what
-     does not hold.
-   - Where the reviews disagree on a verdict (e.g. KEEP vs FOLD), decide by
-     evidence and say which way and why.
-4. If any agent could not be spawned, or any step (including a challenge
-   step) did not run, say so in the report.
-5. After the report, give the reviewer (outside the report) the count of
-   findings dropped at merge and why.
 
 ## Dependency source — install it, do not recall it
 

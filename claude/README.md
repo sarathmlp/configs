@@ -16,6 +16,7 @@ claude/
 │   └── dualreview/SKILL.md       → ~/.claude/skills/dualreview/
 └── agents/
     ├── plain-reviewer.md         → ~/.claude/agents/
+    ├── review-challenger.md      → ~/.claude/agents/
     └── review-merger.md          → ~/.claude/agents/
 ```
 
@@ -85,21 +86,26 @@ uncommitted edits. It first sketches the minimal change that would meet the
 goal and classifies the diff against it, then walks a 10-point checklist and
 has a fresh agent challenge the draft.
 
-- `/myreview` — normal review (main session + one challenger agent).
-- `/myreview deep` — two independent reviews merged; about 3× the cost.
+It runs in the main session plus one challenger agent.
 
-### `/dualreview` — two independent reviews, merged
+### `/dualreview` — two independent reviews, challenged and merged
 
-Runs three agents:
+Runs four agents:
 
 1. `plain-reviewer` reviews the change as a model normally would. It has only
    Bash, Read and Write, so it cannot load a review skill or spawn agents.
-2. A general-purpose agent runs `/myreview` unchanged.
-3. `review-merger` verifies every finding only one review raised, settles
+2. A general-purpose agent runs `/myreview`, minus its own challenge step.
+   Both reviewers run in parallel and end with a "Clean list" of what they
+   found correct (names only).
+3. `review-challenger` gets only those names, forms its own verdict on each
+   before reading either report, and reports what the reviewers missed.
+4. `review-merger` verifies every finding only one source raised, settles
    disagreements by evidence, and writes one report in `/myreview`'s format.
 
-Arguments are passed through to `/myreview`. A run takes roughly 15–20 minutes
-and four agents (including `/myreview`'s challenger).
+The challenger looks for missed bugs; the merger weeds out false alarms.
+Arguments are passed through to `/myreview`. Expect roughly 40–60 minutes.
+The skill runs `caffeinate` so idle sleep can't pause the agents, but closing
+the lid on battery still does.
 
 Each completed run is archived to
 `~/.claude/reviews/<repo>/<branch>/<date>-<sha>/` (`meta.md`, both reports,
