@@ -56,8 +56,8 @@ to read any directory it was not given.
   add only which commits are new since the last review. Never give it the
   previous run's path or findings, and do not mention /myreview, the other
   reviewer, or anything you suspect.
-- `general-purpose` agent: "Invoke the myreview skill with the Skill tool
-  (arguments: <this skill's arguments, or none>) and follow it end to end on
+- `skill-reviewer` agent: "Read ~/.claude/skills/myreview/SKILL.md and follow
+  it (arguments: <this skill's arguments, or none>) end to end on
   this diff. Skip the skill's challenge step: this review runs a separate
   challenger after both reviewers. End the report with a section headed
   `## Clean list`: the units you scored KEEP and the checklist items you
