@@ -148,8 +148,9 @@ language-specific judgement to the language at hand.
    - When a signature, return type or semantics changed, check each caller:
      what does it do when this fails, returns empty, or returns partial?
      Find callers with grep `-w`; use LSP only to narrow a non-unique name, and
-     keep every grep hit LSP didn't rule out by goToDefinition — LSP can
-     silently return a partial list.
+     drop a grep hit only on positive evidence it's a different symbol (the
+     line shows it, or goToDefinition resolves elsewhere) — LSP can silently
+     return a partial list.
    - For every new value the diff introduces — return value, flag, exception
      type, state field, config key — read every place that consumes it, in any
      file, and check the consumer handles it.

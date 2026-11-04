@@ -132,8 +132,9 @@ language at hand (e.g. integer overflow matters in C/Go, not Python).
      candidate set. If the name isn't unique (`run`, `get`), narrow it with LSP
      findReferences/incomingCalls. LSP can return partial results with no error
      (cold server, unresolved imports, string dispatch), so drop a grep hit only
-     when goToDefinition on it resolves elsewhere, and never conclude "no
-     callers" from LSP alone.
+     on positive evidence it's a different symbol — the line itself shows it
+     (`asyncio.run(`), or goToDefinition resolves elsewhere — and never conclude
+     "no callers" from LSP alone.
 
 5. **TEST NEW LOGIC.**
    - Add/update tests covering the happy path and the edge cases from item 3 —
