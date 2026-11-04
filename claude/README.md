@@ -150,7 +150,9 @@ folder (`docs/adr/` or similar; it asks where if there is none).
 `/design <path to a design doc>` reviews that doc instead, in `/myreview`'s
 report layout with an approve / revise / rethink verdict.
 
-Both modes ask for missing constraints instead of assuming numbers, establish
+Both modes ask for missing constraints instead of assuming numbers, write a
+free draft first (the remaining steps check it rather than script it, and
+whatever it finds that they do not cover still goes in the output), establish
 what the platform and existing code already do (`/myreview`'s Step 0
 questions, applied to the problem), compare two or three options including the
 minimal one, check the leading option on failure, data, interfaces, migration,

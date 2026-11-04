@@ -9,9 +9,9 @@ Pick the mode from the arguments:
 - a problem or feature to design: **Design mode**, the output is an ADR;
 - a path to a design doc: **Review mode**, the output is a review.
 
-Designs mostly go wrong on a constraint nobody wrote down, or on building what
-already exists, rather than on the choice between two options. Spend the
-effort on steps 1 and 2.
+Designs often go wrong on a constraint nobody wrote down, or on building what
+already exists; steps 1 and 3 check both. The steps check your thinking; they
+do not replace it.
 
 ## 1. Constraints: ask, never assume
 
@@ -26,7 +26,15 @@ answers. Never fill a gap with an assumed number: no later step catches a
 design built on a guessed constraint. In Review mode, a constraint the doc
 relies on but never states is a finding.
 
-## 2. Floor: what already exists
+## 2. Free draft
+
+Before the steps below, think it through as you would without this skill and
+save a short draft in scratch: how you would solve it (in Review mode, what
+you make of the doc), what worries you, whether the problem is framed right.
+The remaining steps check this draft. Whatever it found that they do not
+cover still goes in the output.
+
+## 3. Floor: what already exists
 
 Answer the three baseline questions of Step 0 in
 `~/.claude/skills/myreview/SKILL.md` against the problem instead of a diff,
@@ -35,22 +43,25 @@ cite `file:line`, never recall. Also ask what the PLATFORM owns (a hosted
 product's console or settings, a managed service's built-ins): no package
 source shows that.
 
-If the floor already solves the problem, the design is "use it" plus its
-configuration. Say so and stop.
+If the floor covers the whole problem, the design is "use it" plus its
+configuration. If it covers most of it, say so plainly, then design the part
+it leaves.
 
-## 3. Options
+## 4. Options
 
 Lay out two or three real options. One is always the minimal one: what the
 floor gives, plus the least added on top. For each:
 - what it is, in a few lines;
 - what it costs to build and to run;
-- what breaks it: the load, failure or change that makes it the wrong choice.
+- what breaks it: the load, failure or change that makes it the wrong choice;
+- in a line each: how it fails, where its data lives, how hard it is to undo.
 
 No option exists only to lose. If only one option is real, say why.
 
-## 4. Check the leading option
+## 5. Check the leading option
 
-Each item needs an answer, or "not applicable because …":
+At least these, plus anything else this design depends on. Each needs an
+answer, or "not applicable because …":
 1. Failure: each dependency down, slow or returning garbage; timeouts,
    retries, idempotency.
 2. Data: the source of truth for each piece, who writes it, the consistency
@@ -66,14 +77,14 @@ Each item needs an answer, or "not applicable because …":
 8. Reversibility: which parts are hard to undo. Put the most scrutiny there and
    the least on parts that are cheap to change later.
 
-## 5. Prove the riskiest assumption
+## 6. Prove the riskiest assumption
 
 Name the one assumption that sinks the design if it is wrong. Where you can,
 test it now with the smallest spike or probe, in scratch and never in the
 project, and read its real output. Where you cannot, say what would test it
 and mark the decision provisional.
 
-## 6. Challenge
+## 7. Challenge
 
 Save the draft in scratch. Spawn one fresh agent with the step 1 constraints
 and the draft's path. It first forms its own view of the riskiest assumption
@@ -108,14 +119,17 @@ last one there. If the repo has none, ask where they should go.
     ## Validation
     <the riskiest assumption, and the spike and its result or what would test it>
 
+    ## Other considerations
+    <anything from the free draft or the challenge that fits no heading above; omit if none>
+
     ## Revisit when
     <the change in load, cost or requirements that should reopen this>
 
 ## Output: Review mode
 
-Run steps 1–6 against the doc; each gap is a finding. Follow the table and
-standalone-block rules in the Output section of
-`~/.claude/skills/myreview/SKILL.md`, and write:
+Run steps 1–7 against the doc; each gap is a finding, including anything the
+free draft found that the steps did not. Follow the table and standalone-block
+rules in the Output section of `~/.claude/skills/myreview/SKILL.md`, and write:
 
     ## Review notes
     <what the design gets right and wrong; the floor; what you could not verify>
