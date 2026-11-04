@@ -101,7 +101,7 @@ full text instead (its write was refused), save that as `merge/merged.md`.
    `~/.claude/reviews/<repo dir name>/<branch, / replaced by _>/<YYYYMMDD-HHMM>-<short HEAD>/`,
    leaving out code copies and virtualenvs: probes are always rerun against
    the current checkout, never an old export. Use exactly
-   `rsync -a --exclude='export*/' --exclude=base/ --exclude=head/ --exclude=venv/ --exclude=__pycache__/ --exclude=mut/ --exclude='mut[0-9]*/' --exclude='/*/prev/' <run dir>/ <archive dir>/`.
+   `rsync -a --exclude='export*/' --exclude=base/ --exclude=head/ --exclude=venv/ --exclude=__pycache__/ --exclude=.git/ --exclude=mut/ --exclude='mut[0-9]*/' --exclude='/*/prev/' <run dir>/ <archive dir>/`.
    `prev/` is excluded only directly under an agent's directory: `probes/prev/`
    holds earlier probes, not code.
 2. Stop the `caffeinate` started in step 1.5 (`pkill -f "caffeinate -i -t 10800"`).
