@@ -1,7 +1,7 @@
 # Claude Code config
 
-Personal Claude Code setup: global instructions, review skills and the agents
-they use. The layout mirrors `~/.claude/`, so every file here has one home there.
+Personal Claude Code setup: global instructions, review and design skills,
+and the agents they use. The layout mirrors `~/.claude/`, so every file here has one home there.
 
 ```
 claude/
@@ -13,9 +13,11 @@ claude/
 ├── settings.json                 → ~/.claude/settings.json  rtk hook, effort level, theme, plugins
 ├── skills/
 │   ├── myreview/SKILL.md         → ~/.claude/skills/myreview/
-│   └── dualreview/SKILL.md       → ~/.claude/skills/dualreview/
+│   ├── dualreview/SKILL.md       → ~/.claude/skills/dualreview/
+│   └── design/SKILL.md           → ~/.claude/skills/design/
 └── agents/
     ├── plain-reviewer.md         → ~/.claude/agents/
+    ├── skill-reviewer.md         → ~/.claude/agents/
     ├── review-challenger.md      → ~/.claude/agents/
     └── review-merger.md          → ~/.claude/agents/
 ```
@@ -107,8 +109,10 @@ Runs four agents:
 
 1. `plain-reviewer` reviews the change as a model normally would. It has only
    Bash, Read and Write, so it cannot load a review skill or spawn agents.
-2. A general-purpose agent runs `/myreview`, minus its own challenge step.
-   Both reviewers run in parallel and end with a "Clean list" of what they
+2. `skill-reviewer` reads and follows `/myreview`, minus its own challenge
+   step. It has only Bash, Read, Write and Jira issue lookup, which saves
+   ~24K tokens of unused tool definitions per turn; because it cannot spawn
+   agents, use it only through `/dualreview`. Both reviewers run in parallel and end with a "Clean list" of what they
    found correct (names only).
 3. `review-challenger` gets only those names, forms its own verdict on each
    before reading either report, and reports what the reviewers missed.
@@ -130,6 +134,26 @@ the merged report, the probes). That archive is not part of this repo.
 **Follow-ups:** after the PR is updated, pull it and run `/dualreview` again.
 It finds the last archived run for the branch and reviews the update: the plain
 reviewer stays blind to old findings, the `/myreview` reviewer re-checks them,
-and the merged report opens with a "Prior findings" table (landed / not landed /
+and the merged report has a "Prior findings" list (landed / not landed /
 addressed differently / no longer applies, each with evidence). If the old head
 was force-pushed away, every prior finding is re-checked against the full diff.
+
+**Report layout** (`/myreview` and the merged report): notes for you first
+(Review notes, Step 0, Prior findings, Open question, Merge notes), then
+Blockers, Should-fix and Nits as one block that stands alone, citing only repo
+`file:line`, so it can be pasted to the submitter as is, then the Verdict last.
+
+### `/design` — work out or review a design before code exists
+
+`/design <problem or feature>` writes a markdown ADR into the repo's ADR
+folder (`docs/adr/` or similar; it asks where if there is none).
+`/design <path to a design doc>` reviews that doc instead, in `/myreview`'s
+report layout with an approve / revise / rethink verdict.
+
+Both modes ask for missing constraints instead of assuming numbers, establish
+what the platform and existing code already do (`/myreview`'s Step 0
+questions, applied to the problem), compare two or three options including the
+minimal one, check the leading option on failure, data, interfaces, migration,
+trust boundaries, operations, cost and reversibility, test the riskiest
+assumption with a spike where possible, and have a fresh agent challenge the
+draft.
