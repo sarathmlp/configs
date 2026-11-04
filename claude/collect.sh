@@ -5,9 +5,8 @@ set -euo pipefail
 
 SRC="$HOME/.claude"
 DEST="$(cd "$(dirname "$0")" && pwd)"
-# Skills that are not ours: graphify is installed by its own tool, synced/ is
-# managed by claude.ai.
-SKIP_SKILLS="graphify synced"
+# Skills that are not ours: synced/ is managed by claude.ai.
+SKIP_SKILLS="synced"
 
 files() {
   for f in CLAUDE.md RTK.md settings.json; do [ -f "$f" ] && echo "$f"; done

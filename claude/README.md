@@ -68,8 +68,8 @@ cd ~/configs && git add claude && git commit -m "..."
 ```
 
 `collect.sh` picks up `CLAUDE.md`, `RTK.md`, `settings.json`, every agent and
-every skill, including new ones, except `graphify` (installed by its own tool)
-and `synced` (managed by claude.ai). It never deletes: if you remove a skill
+every skill, including new ones, except `synced` (managed by claude.ai). It
+never deletes: if you remove a skill
 from `~/.claude`, delete it here yourself. Review `git status` before committing.
 
 ## New machine
