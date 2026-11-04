@@ -59,8 +59,8 @@ to read any directory it was not given.
 - `skill-reviewer` agent: "Read ~/.claude/skills/myreview/SKILL.md and follow
   it (arguments: <this skill's arguments, or none>) end to end on
   this diff. Skip the skill's challenge step: this review runs a separate
-  challenger after both reviewers. End the report with a section headed
-  `## Clean list`: the units you scored KEEP and the checklist items you
+  challenger after both reviewers. After the Verdict line, end the report with
+  a section headed `## Clean list`: the units you scored KEEP and the checklist items you
   marked clean, one per line, names only, no reasons. Return its full final
   report as text; do not write it to a file. Do not run mutation testing unless
   the change adds or alters a safety check (authorization, a size limit, path

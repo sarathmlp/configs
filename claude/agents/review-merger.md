@@ -41,7 +41,7 @@ that commit), never an export left over from an earlier run.
 
 Follow-up runs: if you are also given the previous run's merged report, the
 change has been updated since that review. Before merging the new reports,
-build a status table of every finding in the previous merged report:
+give every finding in the previous merged report one of these statuses:
 
 - landed: the fix is in, shown by a rerun probe or test, or the file:line of
   the corrected code;
@@ -52,24 +52,27 @@ build a status table of every finding in the previous merged report:
 - no longer applies: the code it was about was removed.
 
 Never mark a finding landed because the new code looks right or a report says
-so; each row needs its own evidence. A finding still open goes into the
+so; each finding needs its own evidence. A finding still open goes into the
 merged findings as well. For a finding the previous report already marked
 landed, rerun its probe only if the update diff touches a file the probe
 exercises; otherwise the evidence is the unchanged code at its file:line.
 If report B already reran a prior finding's probe in this run, its saved
-output is that row's evidence: read and cite it, and rerun only when A or C
-disputes the row or the output does not show the status B claims.
+output is that finding's evidence: read and cite it, and rerun only when A or
+C disputes the status or the output does not show the status B claims.
 
 Output: read the "Output" section of ~/.claude/skills/myreview/SKILL.md and
 write the merged report in exactly the format it gives ("The report should be
-in the below format" and the table rule after it); take the Step 0 material
-from report B. On a follow-up run, put the prior-findings status table, as
-a "### Prior findings" section, right after the Verdict line. Then, after the
-report, add:
+in the below format" and the rules after it); take the Step 0 material
+from report B. On a follow-up run, the statuses above fill its "### Prior
+findings" section. Right after "### Open question", before the `---` that
+opens "### Blockers", add a "## Merge notes" section with:
 
-- which findings came from A, from B, from C, or from more than one;
+- which findings came from A, from B, from C, or from more than one, with
+  the saved probe output behind each;
 - what you dropped at merge and why;
 - anything either report says it could not verify or did not run.
+
+The Verdict line stays the last line of the file.
 
 Write the whole output (report plus these notes) to `merged.md` in your
 scratch directory. Then return only the path and a short summary: the

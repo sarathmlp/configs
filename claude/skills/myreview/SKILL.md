@@ -237,15 +237,36 @@ The report should be in the below format:
     <DIFFERENT PRIMITIVES, NO REASON GIVEN. PLATFORM DOES, NOT CODE.?>
     <If above two classification, instruct what change submitter should do>
 
-    **Verdict:** <approve | request-changes | rework>. <one sentence: what must happen before merge.>
+    ### Prior findings
+    <follow-up passes only: one bullet per prior finding, never a table>
+    - **<finding id>: <title>** — <landed | not landed | addressed differently | no longer applies>
+      - <evidence: file:line, probe or test output; one short line per sub-bullet>
+
+    ### Open question
+    <any PLATFORM DOES, NOT CODE item, with the number that decides it>
+
+    ---
 
     ### Blockers
     <finding, file:line, root cause, fix>
 
     ### Should-fix
     ### Nits
-    ### Open question
-    <any PLATFORM DOES, NOT CODE item, with the number that decides it>
 
-Every table must be a plain pipe table indented under a bullet point. No
-other table format.
+    ---
+
+    **Verdict:** <approve | request-changes | rework>. <one sentence: what must happen before merge.>
+
+The Verdict line ends the report; only a section the caller asks for goes
+after it. Blockers, Should-fix and Nits are pasted to the submitter as one
+block, so nothing else goes between them, and the block must stand alone:
+- cite only repo `file:line`, and say in words what a probe or test showed;
+- no scratch or archive paths, no other reviewer's report, no reference to
+  another section;
+- a Step 0 instruction to the submitter goes in as a Should-fix too.
+Probe and output paths go in Review notes (or the merger's Merge notes).
+
+Use a table only when every cell is a word or a short phrase; anything
+longer is a list. Every table must be a plain pipe table indented under a
+bullet point, no other table format: it pastes into a GitHub review and
+renders there, where drawn box tables do not.
