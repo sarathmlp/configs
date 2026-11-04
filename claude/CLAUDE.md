@@ -108,7 +108,7 @@ language at hand (e.g. integer overflow matters in C/Go, not Python).
 
 3. **COVER EDGE CASES & RESOURCES.**
    - Hold for missing/null, empty, zero, negative, wrong-type, and oversized
-     inputs.
+     inputs that can actually reach this code.
    - Release every acquired resource (files, sockets, locks, memory) on all
      paths via scope-based cleanup (with / defer / try-finally / RAII).
    - Guard division/modulo by zero; watch overflow, precision, and truncation in
