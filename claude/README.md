@@ -76,6 +76,19 @@ from `~/.claude`, delete it here yourself. Review `git status` before committing
 
 1. Install Claude Code and `rtk`.
 2. Clone this repo and run `claude/install.sh`.
+3. Install the language servers the LSP plugins in `settings.json` start
+   (`clangd` and `sourcekit-lsp` come with Xcode's command-line tools):
+
+   ```sh
+   npm install -g pyright typescript typescript-language-server
+   for p in pyright-lsp typescript-lsp clangd-lsp swift-lsp; do
+     claude plugin install "$p@claude-plugins-official"
+   done
+   ```
+
+   For a Python repo, Pyright resolves imports only when pointed at the
+   project's virtualenv: add a local `pyrightconfig.json` (`venvPath`, `venv`,
+   `extraPaths`) and list it in `.git/info/exclude`.
 
 ## Usage
 
