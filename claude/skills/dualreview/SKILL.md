@@ -38,7 +38,8 @@ to the user once before starting.
    with empty `plain/`, `skill/`, `challenge/`, `merge/`, and a `meta.md` recording: repo
    path, branch, merge target, base commit (`git merge-base`), HEAD commit,
    the full diff command, the update diff command (or why there is none), the
-   previous run's path (or "none"), and the date.
+   previous run's path (or "none"), the iteration (the number of run
+   directories already archived for this branch, plus one), and the date.
 5. Keep the Mac awake for the run: start `caffeinate -i -t 10800` with
    `run_in_background` (skip if `caffeinate` is missing). Idle sleep pauses
    every agent; this does not stop sleep when the lid is closed on battery.
@@ -64,7 +65,8 @@ to read any directory it was not given.
   marked clean, one per line, names only, no reasons. Return its full final
   report as text; do not write it to a file. Do not run mutation testing unless
   the change adds or alters a safety check (authorization, a size limit, path
-  validation) that no existing test exercises; then mutate only that check."
+  validation) that no existing test exercises; then mutate only that check.
+  This is review iteration <n>."
   On a follow-up, add: the previous run's `merge/merged.md` path, its
   `plain/`, `skill/`, `challenge/` and `merge/` directories (for the probes to rerun), the
   update diff command, and "This is a follow-up: apply the skill's 'Follow-up
@@ -90,7 +92,7 @@ verbatim to `challenge/report.md`.
 
 Spawn a `review-merger` agent with the repo path, the full diff command, the
 three report paths (`plain/`, `skill/` and `challenge/report.md`) and the
-run's `merge/` directory. On a follow-up, also give
+run's `merge/` directory, and the iteration from `meta.md`. On a follow-up, also give
 it the previous run's `merge/merged.md` and the update diff command. It
 writes `merge/merged.md` and returns only a short summary; if it returns the
 full text instead (its write was refused), save that as `merge/merged.md`.

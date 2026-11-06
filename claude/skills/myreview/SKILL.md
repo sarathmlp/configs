@@ -255,7 +255,21 @@ The report should be in the below format:
 
     ---
 
+    **Iteration:** <n>
+
     **Verdict:** <approve | request-changes | rework>. <one sentence: what must happen before merge.>
+
+`<n>` is 1 on a first review and one more than the previous review's on each
+follow-up; a caller that gives you the number overrides this.
+
+On a follow-up, mark every regression: a finding whose cause is in code
+changed since the previous review, or a prior finding that had landed and is
+broken again. Start its title with 🔁 and end it with
+`(regression, iteration <k>)`, where k is the iteration it first appeared in.
+Keep the marker and k in every later report while it is listed, in Prior
+findings too. A problem in code unchanged since the previous review is a late
+finding, not a regression, and gets no marker. When there is no update diff
+(history was rewritten), mark only prior findings that broke again.
 
 The Verdict line ends the report; only a section the caller asks for goes
 after it. Blockers, Should-fix and Nits are pasted to the submitter as one
